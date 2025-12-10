@@ -1,0 +1,1 @@
+#LLM usada como gerente no programa
