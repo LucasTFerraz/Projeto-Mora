@@ -1,0 +1,723 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/lucas/ontologies/2025/11/Project_Ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/lucas/ontologies/2025/11/Project_Ontology">
+    <Prefix name="" IRI="http://www.semanticweb.org/lucas/ontologies/2025/11/Project_Ontology/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Alta"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Baixa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Causas"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Defeito"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Eixo_X"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Eixo_Y"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Eixo_Z"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Estado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Funcionario"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Gravidade"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Gravidade_Alta_de_Falha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Gravidade_Baixa_de_Falha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Gravidade_Media_de_Falha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Junior"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#M"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Maquina"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Media"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#N"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Nenhum"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Normal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Perto_de_Quebrar"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Quebrado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recem-concertado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#S_i"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#S_j"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#S_k"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Senior"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Temporario"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Treinando"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#distante_de_quebrar"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#i_Quebrado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#j_Quebrado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#k_Quebrado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Caracteristica_Do_Defeito"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Defeito_Causado_Por"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Defeito_De_Gravidade"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Defeito_com_caracteristica"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Funcionario_de_nivel"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Gravidade_Alta"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Gravidade_Baixa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Gravidade_Defeito"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Gravidade_Do_Defeito"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Gravidade_Media"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Nivel_Do_Funcinario"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Treinado_por"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Treinando"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Alta"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Baixa"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Gravidade"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Media"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Falha_Grave_i"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Falha_I_Grave_Iminente"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#M1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#M2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MrJunior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MrSenior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MrTreinando"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#N1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#N2"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Gravidade_Alta_de_Falha"/>
+        <DataHasValue>
+            <DataProperty IRI="#Nivel_Gravidade"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">4</Literal>
+        </DataHasValue>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Gravidade_Baixa_de_Falha"/>
+        <DataHasValue>
+            <DataProperty IRI="#Nivel_Gravidade"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">1</Literal>
+        </DataHasValue>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Gravidade_Media_de_Falha"/>
+        <DataHasValue>
+            <DataProperty IRI="#Nivel_Gravidade"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">2</Literal>
+        </DataHasValue>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#Alta"/>
+        <Class IRI="#Gravidade"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Baixa"/>
+        <Class IRI="#Gravidade"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Causas"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Causa_Do_Defeito"/>
+            <Class IRI="#Defeito"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Eixo_X"/>
+        <Class IRI="#Causas"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Eixo_Y"/>
+        <Class IRI="#Causas"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Eixo_Z"/>
+        <Class IRI="#Causas"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Gravidade_Alta_de_Falha"/>
+        <Class IRI="#Alta"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Gravidade_Baixa_de_Falha"/>
+        <Class IRI="#Baixa"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Gravidade_Media_de_Falha"/>
+        <Class IRI="#Media"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Junior"/>
+        <Class IRI="#Funcionario"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#M"/>
+        <Class IRI="#Maquina"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Media"/>
+        <Class IRI="#Gravidade"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#N"/>
+        <Class IRI="#Maquina"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Nenhum"/>
+        <Class IRI="#Defeito"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Normal"/>
+        <Class IRI="#Estado"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Perto_de_Quebrar"/>
+        <Class IRI="#Estado"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Quebrado"/>
+        <Class IRI="#Estado"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Recem-concertado"/>
+        <Class IRI="#Estado"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#S_i"/>
+        <Class IRI="#Causas"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#S_j"/>
+        <Class IRI="#Causas"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#S_k"/>
+        <Class IRI="#Causas"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Senior"/>
+        <Class IRI="#Funcionario"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Senior"/>
+        <ObjectMaxCardinality cardinality="2">
+            <ObjectProperty IRI="#Treinando"/>
+            <Class IRI="#Junior"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Temporario"/>
+        <Class IRI="#Funcionario"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Treinando"/>
+        <Class IRI="#Funcionario"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Treinando"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#Treinado_por"/>
+            <Class IRI="#Senior"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#distante_de_quebrar"/>
+        <Class IRI="#Estado"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#i_Quebrado"/>
+        <Class IRI="#Defeito"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#i_Quebrado"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#Defeito_Causado_Por"/>
+            <Class IRI="#S_i"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#j_Quebrado"/>
+        <Class IRI="#Defeito"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#j_Quebrado"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#Defeito_Causado_Por"/>
+            <Class IRI="#S_j"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#k_Quebrado"/>
+        <Class IRI="#Defeito"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#k_Quebrado"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#Defeito_Causado_Por"/>
+            <Class IRI="#S_k"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#Eixo_X"/>
+        <Class IRI="#Eixo_Y"/>
+        <Class IRI="#Eixo_Z"/>
+        <Class IRI="#S_i"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Eixo_X"/>
+        <Class IRI="#Eixo_Y"/>
+        <Class IRI="#Eixo_Z"/>
+        <Class IRI="#S_i"/>
+        <Class IRI="#S_j"/>
+        <Class IRI="#S_k"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Junior"/>
+        <Class IRI="#Senior"/>
+        <Class IRI="#Temporario"/>
+        <Class IRI="#Treinando"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#M"/>
+        <Class IRI="#N"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Nenhum"/>
+        <Class IRI="#i_Quebrado"/>
+        <Class IRI="#j_Quebrado"/>
+        <Class IRI="#k_Quebrado"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Normal"/>
+        <Class IRI="#Perto_de_Quebrar"/>
+        <Class IRI="#Quebrado"/>
+        <Class IRI="#Recem-concertado"/>
+        <Class IRI="#distante_de_quebrar"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#i_Quebrado"/>
+        <Class IRI="#j_Quebrado"/>
+        <Class IRI="#k_Quebrado"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#Gravidade_Alta_de_Falha"/>
+        <NamedIndividual IRI="#Falha_I_Grave_Iminente"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Perto_de_Quebrar"/>
+        <NamedIndividual IRI="#Falha_I_Grave_Iminente"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#i_Quebrado"/>
+        <NamedIndividual IRI="#Falha_I_Grave_Iminente"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#M"/>
+        <NamedIndividual IRI="#M1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#M"/>
+        <NamedIndividual IRI="#M2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Junior"/>
+        <NamedIndividual IRI="#MrJunior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Senior"/>
+        <NamedIndividual IRI="#MrSenior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Treinando"/>
+        <NamedIndividual IRI="#MrTreinando"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#N"/>
+        <NamedIndividual IRI="#N1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#N"/>
+        <NamedIndividual IRI="#N2"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <NamedIndividual IRI="#MrTreinando"/>
+        <NamedIndividual IRI="#MrSenior"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+        <NamedIndividual IRI="#Falha_Grave_i"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">4</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Defeito_Causado_Por"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Gravidade_Alta"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Gravidade_Baixa"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Gravidade_Do_Defeito"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Gravidade_Media"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#Treinando"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Caracteristica_Do_Defeito"/>
+        <ObjectProperty IRI="#Defeito_com_caracteristica"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+        <ObjectProperty IRI="#Defeito_Causado_Por"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Defeito_De_Gravidade"/>
+        <ObjectProperty IRI="#Gravidade_Do_Defeito"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Funcionario_de_nivel"/>
+        <ObjectProperty IRI="#Nivel_Do_Funcinario"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <ObjectProperty IRI="#Treinando"/>
+    </InverseObjectProperties>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#Treinado_por"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#Treinando"/>
+    </AsymmetricObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#Treinado_por"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#Treinando"/>
+    </IrreflexiveObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+        <Class IRI="#Causas"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+        <Class IRI="#Estado"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+        <Class IRI="#Maquina"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+        <Class IRI="#Maquina"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+        <Class IRI="#Maquina"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <Class IRI="#Treinando"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Treinando"/>
+        <Class IRI="#Senior"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+        <Class IRI="#Defeito"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+        <Class IRI="#Maquina"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+        <Class IRI="#Maquina"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+        <Class IRI="#Estado"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+        <Class IRI="#Maquina"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <Class IRI="#Senior"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Treinando"/>
+        <Class IRI="#Treinando"/>
+    </ObjectPropertyRange>
+    <DisjointObjectProperties>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+        <ObjectProperty IRI="#Defeito_Causado_Por"/>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+        <ObjectProperty IRI="#Gravidade_Alta"/>
+        <ObjectProperty IRI="#Gravidade_Baixa"/>
+        <ObjectProperty IRI="#Gravidade_Media"/>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <ObjectProperty IRI="#Treinando"/>
+    </DisjointObjectProperties>
+    <DisjointObjectProperties>
+        <ObjectProperty IRI="#Causa_Do_Defeito"/>
+        <ObjectProperty IRI="#Defeito_Causado_Por"/>
+        <ObjectProperty IRI="#Estado_Da_Maquina"/>
+        <ObjectProperty IRI="#Gravidade_Do_Defeito"/>
+        <ObjectProperty IRI="#Maquina_Do_Modelo"/>
+        <ObjectProperty IRI="#Maquina_No_Estado"/>
+        <ObjectProperty IRI="#Modelo_Da_Maquina"/>
+        <ObjectProperty IRI="#Treinado_por"/>
+        <ObjectProperty IRI="#Treinando"/>
+    </DisjointObjectProperties>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#Alta"/>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#Baixa"/>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#Media"/>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+        <Class IRI="#Defeito"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#Alta"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Baixa"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Media"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Nivel_Gravidade"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DisjointDataProperties>
+        <DataProperty IRI="#Alta"/>
+        <DataProperty IRI="#Baixa"/>
+        <DataProperty IRI="#Media"/>
+    </DisjointDataProperties>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Caracteristica_Do_Defeito</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Defeito_De_Gravidade</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Defeito_com_caracteristica</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Funcionario_de_nivel</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Gravidade_Defeito</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Gravidade_Do_Defeito</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Nivel_Do_Funcinario</IRI>
+        <Literal>Removed a class</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#Nivel_Do_Funcinario</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
