@@ -5,8 +5,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 # Importando motores dos modelos
-'''from models.randon_forest import RandomForestEngine
-from models.LSTM import LSTMEngine'''
+from models.randon_forest import RandomForestEngine
+#from models.LSTM import LSTMEngine
 from LLM_G import LLMGerente
 
 
@@ -22,15 +22,15 @@ app = FastAPI(
 # Carrega os modelos quando o servidor inicia
 # ---------------------------------------------------
 
-#rf_engine = RandomForestEngine(mode="classification")
-#rf_engine.load()
+rf_engine = RandomForestEngine(mode="classification")
+rf_engine.load()
 
 #lstm_engine = LSTMEngine(input_size=4)  # Exemplo: 4 features
 #lstm_engine.load()
 
 llm_gerente = LLMGerente(
-    rf_engine=rf_engine,
-    lstm_engine=lstm_engine
+    #rf_engine=rf_engine,
+    #lstm_engine=lstm_engine
 )
 
 

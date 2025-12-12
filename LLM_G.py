@@ -6,7 +6,7 @@
 
 from typing import Dict, List, Any
 from FORM_TEXT_INPUT import FormTextInput
-from employees_mora import GerenciadorFuncionarios, MotorAtribuicao
+from EMPLOYEES_MORA import GerenciadorFuncionarios, MotorAtribuicao
 
 # ============================================================================
 # MAPEAMENTOS ESPECÍFICOS (Para saída exata)
@@ -53,7 +53,7 @@ class LLMGerente:
 
     def _carregar_funcionarios(self):
         """Carrega os 10 funcionários para compatibilidade"""
-        from employees_mora import GerenciadorFuncionarios, MotorAtribuicao
+        from EMPLOYEES_MORA import GerenciadorFuncionarios, MotorAtribuicao
         dados = [
             {'Nome': 'Beatrice', 'nivel': 'Senior'},
             {'Nome': 'Erika', 'nivel': 'Junior'},
@@ -68,7 +68,7 @@ class LLMGerente:
         ]
         gerenciador = GerenciadorFuncionarios()
         for d in dados:
-            from employees_mora import Funcionario
+            from EMPLOYEES_MORA import Funcionario
             func = Funcionario(nome=d['Nome'], nivel=d['nivel'], treinador=d.get('Treinador'))
             gerenciador.adicionar_funcionario(func)
         return gerenciador, MotorAtribuicao(gerenciador)
