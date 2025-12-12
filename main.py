@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Optional
+from FORM_TEXT_INPUT import form_text_input
 
 # Importando motores dos modelos
 from models.randon_forest import RandomForestEngine

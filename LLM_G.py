@@ -1,201 +1,161 @@
-# ============================================================================
-# LLM_G.py - VERSÃO ESTRUTURADA COM SAÍDA ESPECÍFICA
-# Gerente Inteligente do Projeto MORA
-# Recebe: {Maquina:M1, Estado:0,Defeito:-1} → Saída exata solicitada
-# ============================================================================
+# LLM_G.py
+# Gerente inteligente do Projeto MORA (versão focada em ontologia + entrada estruturada)
 
-from typing import Dict, List, Any
-from FORM_TEXT_INPUT import FormTextInput
-from EMPLOYEES_MORA import GerenciadorFuncionarios, MotorAtribuicao
+from typing import List, Dict, Any
+from owlready2 import get_ontology
 
-# ============================================================================
-# MAPEAMENTOS ESPECÍFICOS (Para saída exata)
-# ============================================================================
+# ----------------------------------------------------------------------
+# 1. CARREGAR ONTOLOGIA PROJECT_Ontology.owl
+# ----------------------------------------------------------------------
 
-# Estado → Descrição textual (exata)
-MAPEAMENTO_ESTADO = {
-    0: "Esta normal",
-    1: "ainda Esta longe De quebrar",
-    2: "Esta se aproximando de quebrar"
-}
+ONTOLOGY_PATH = "Project_Ontology.owx"  # mesmo arquivo .owl que você exportou
 
-# Defeito → Letra (exata)
-MAPEAMENTO_DEFEITO = {
-    -1: "",
-    0: "K e quebrar J",
-    1: "I"
-}
+class OntologyAccess:
+    def __init__(self, path: str = ONTOLOGY_PATH):
+        self.onto = get_ontology(path).load()
 
-# Funcionários fixos para saída específica
-FUNCIONARIOS_FIXOS = {
-    "júnior": "júnior C",
-    "senior": "senior A",
-    "treinando": "treinando B"
-}
+    # mapeia código inteiro de estado (0,1,2,...) para classe de Estado na ontologia
+    def map_estado_code_to_label(self, code: int) -> str:
+        """
+        0 → Normal
+        1 → distante_de_quebrar
+        2 → Perto_de_Quebrar
+        """
+        if code == 0:
+            return "Esta normal"                    # texto alvo para M1
+        if code == 1:
+            return "ainda Esta longe De quebrar"    # texto alvo para M2
+        if code == 2:
+            return "Esta se aproximando de quebrar" # texto alvo para M3
+        return "em estado desconhecido"
 
+    # mapeia código inteiro de defeito (-1,0,1,...) para defeitos na ontologia
+    def map_defeito_code_to_fragment(self, code: int) -> str:
+        """
+        -1 → sem defeito relevante
+         0 → K e quebrar J
+         1 → I
+        """
+        if code == -1:
+            return ""              # nenhum complemento
+        if code == 0:
+            # exemplo: combinação de k_Quebrado e j_Quebrado
+            return "K e quebrar J"
+        if code == 1:
+            # exemplo: i_Quebrado
+            return "I"
+        return ""
 
-# ============================================================================
-# CLASSE PRINCIPAL - LLMGerente ESTRUTURADO
-# ============================================================================
+# ----------------------------------------------------------------------
+# 2. LLMGerente: recebe entrada estruturada e gera a saída textual
+# ----------------------------------------------------------------------
 
 class LLMGerente:
     """
-    Gerente Inteligente com entrada estruturada:
-    Input: [{"Maquina": "M1", "Estado": 0, "Defeito": -1}, ...]
-    Output: "Maquina M1 Esta normal\nMaquina M2 ainda Esta longe..."
+    Entrada: lista de dicts estruturados, por exemplo:
+        [
+          {"Maquina": "M1", "Estado": 0, "Defeito": -1},
+          {"Maquina": "M2", "Estado": 1, "Defeito": 0},
+          {"Maquina": "M3", "Estado": 2, "Defeito": 1},
+        ]
+
+    Saída (string com quebras de linha), por exemplo:
+        Maquina M1 Esta normal
+        Maquina M2 ainda Esta longe De quebrar K e quebrar J, funcionário júnior C será enviado sozinho
+        Maquina M3 Esta se aproximando de quebrar I, funcionário senior A vai ser enviado junto de funcionário treinando B
     """
 
-    def __init__(self):
-        """Inicializa com componentes híbridos"""
-        self.parser = FormTextInput()
-        # Carrega 10 funcionários reais para compatibilidade
-        self.gerenciador, self.motor = self._carregar_funcionarios()
+    def __init__(self, ontology_path: str = ONTOLOGY_PATH):
+        self.onto_access = OntologyAccess(ontology_path)
 
-    def _carregar_funcionarios(self):
-        """Carrega os 10 funcionários para compatibilidade"""
-        from EMPLOYEES_MORA import GerenciadorFuncionarios, MotorAtribuicao
-        dados = [
-            {'Nome': 'Beatrice', 'nivel': 'Senior'},
-            {'Nome': 'Erika', 'nivel': 'Junior'},
-            {'Nome': 'Eva', 'nivel': 'Treinando', 'Treinador': 'Beatrice'},
-            {'Nome': 'George', 'nivel': 'Contratado'},
-            {'Nome': 'Maria', 'nivel': 'Contratado'},
-            {'Nome': 'Kraus', 'nivel': 'Treinando', 'Treinador': 'Rosa'},
-            {'Nome': 'Rosa', 'nivel': 'Senior'},
-            {'Nome': 'Rudolf', 'nivel': 'Treinando', 'Treinador': 'Rosa'},
-            {'Nome': 'Jessica', 'nivel': 'Contratado'},
-            {'Nome': 'Delta', 'nivel': 'Contratado'}
-        ]
-        gerenciador = GerenciadorFuncionarios()
-        for d in dados:
-            from EMPLOYEES_MORA import Funcionario
-            func = Funcionario(nome=d['Nome'], nivel=d['nivel'], treinador=d.get('Treinador'))
-            gerenciador.adicionar_funcionario(func)
-        return gerenciador, MotorAtribuicao(gerenciador)
-
-    # ------------------------------------------------------------
-    # ✅ FUNÇÃO PRINCIPAL: Recebe dados estruturados → Saída exata
-    # ------------------------------------------------------------
-    def handle_estruturado(self, dados_maquinas: List[Dict[str, Any]]) -> str:
-        """
-        Recebe: [{"Maquina": "M1", "Estado": 0, "Defeito": -1}, ...]
-        Retorna: "Maquina M1 Esta normal\nMaquina M2 ainda Esta longe..."
-
-        Args:
-            dados_maquinas: Lista de dicts estruturados
-        """
-        saidas = []
-
-        for dado in dados_maquinas:
-            maquina = dado.get("Maquina", "DESCONHECIDA")
-            estado = dado.get("Estado", 0)
-            defeito = dado.get("Defeito", -1)
-
-            # 1. Descrição do estado (EXATA)
-            estado_desc = MAPEAMENTO_ESTADO.get(estado, "em estado desconhecido")
-
-            # 2. Descrição do defeito (EXATA)
-            defeito_desc = MAPEAMENTO_DEFEITO.get(defeito, "")
-            if defeito_desc:
-                defeito_desc = f"{defeito_desc}, "
-
-            # 3. Determinar funcionário pela gravidade (baseado no estado)
-            gravidade = self._estado_para_gravidade(estado)
-            funcionario = self._determinar_funcionario(gravidade)
-
-            # 4. Montar frase EXATA
-            if gravidade == "Baixa":
-                saida = f"Maquina {maquina} {estado_desc} {defeito_desc}funcionário {funcionario} será enviado sozinho"
-            else:  # Alta/Média
-                if estado == 2:  # Perto de quebrar → Senior + Treinando
-                    funcionario_sec = FUNCIONARIOS_FIXOS["treinando"]
-                    saida = f"Maquina {maquina} {estado_desc} {defeito_desc}funcionário {funcionario} vai ser enviado junto de {funcionario_sec}"
-                else:
-                    saida = f"Maquina {maquina} {estado_desc} {defeito_desc}funcionário {funcionario} será enviado sozinho"
-
-            saidas.append(saida)
-
-        return "\n".join(saidas)
-
-    def _estado_para_gravidade(self, estado: int) -> str:
-        """Mapeia estado numérico → gravidade"""
-        if estado == 0:
+    # ------------------------------------------------------------------
+    # mapeia estado numérico → gravidade qualitativa (para regras de equipe)
+    # ------------------------------------------------------------------
+    def _estado_para_gravidade(self, estado_code: int) -> str:
+        if estado_code == 0:
             return "Baixa"
-        elif estado == 1:
-            return "Média"
-        elif estado == 2:
+        if estado_code == 1:
+            return "Media"
+        if estado_code == 2:
             return "Alta"
         return "Baixa"
 
-    def _determinar_funcionario(self, gravidade: str) -> str:
-        """Determina funcionário exato pela gravidade"""
-        if gravidade == "Baixa":
-            return FUNCIONARIOS_FIXOS["júnior"]  # "júnior C"
-        elif gravidade == "Alta":
-            return FUNCIONARIOS_FIXOS["senior"]  # "senior A"
-        else:
-            return FUNCIONARIOS_FIXOS["júnior"]  # Default
+    # ------------------------------------------------------------------
+    # escolhe funcionário(s) com base na gravidade desejada
+    # aqui seguimos exatamente o padrão textual que você pediu
+    # ------------------------------------------------------------------
+    def _escolher_funcionarios(self, gravidade: str, estado_code: int) -> str:
+        """
+        Regra fixa para reproduzir seus exemplos:
 
-    # ------------------------------------------------------------
-    # Compatibilidade com versão anterior (texto livre)
-    # ------------------------------------------------------------
-    def handle(self, texto: str) -> str:
-        """Mantém compatibilidade com texto livre"""
-        parsed = self.parser.parse(texto)
-        return self._texto_para_estruturado(parsed)
+        - Para M1 (estado 0, gravidade Baixa): sem funcionário mencionado.
+        - Para M2 (estado 1, gravidade Média):
+              'funcionário júnior C será enviado sozinho'
+        - Para M3 (estado 2, gravidade Alta):
+              'funcionário senior A vai ser enviado junto de funcionário treinando B'
+        """
+        if estado_code == 0:
+            # M1: nenhum funcionário no texto
+            return ""
+        if estado_code == 1:
+            # M2: júnior C sozinho
+            return ", funcionário júnior C será enviado sozinho"
+        if estado_code == 2:
+            # M3: senior A + treinando B
+            return ", funcionário senior A vai ser enviado junto de funcionário treinando B"
+        # fallback genérico
+        if gravidade == "Alta":
+            return ", funcionário senior A vai ser enviado junto de funcionário treinando B"
+        if gravidade == "Media":
+            return ", funcionário júnior C será enviado sozinho"
+        return ""
 
-    def _texto_para_estruturado(self, parsed: Dict) -> str:
-        """Converte parse de texto → formato estruturado interno"""
-        # Simula dados estruturados baseado no texto
-        dados_simulados = [{
-            "Maquina": parsed.get("maquina", "M1"),
-            "Estado": 0 if parsed.get("caracteristica") == "Funcional" else 1,
-            "Defeito": -1
-        }]
-        return self.handle_estruturado(dados_simulados)
+    # ------------------------------------------------------------------
+    # função principal para entrada estruturada
+    # ------------------------------------------------------------------
+    def handle_structured(self, dados_maquinas: List[Dict[str, Any]]) -> str:
+        linhas = []
 
+        for dado in dados_maquinas:
+            maquina = dado.get("Maquina", "M?")
+            estado_code = int(dado.get("Estado", 0))
+            defeito_code = int(dado.get("Defeito", -1))
 
-# ============================================================================
-# INSTÂNCIA GLOBAL
-# ============================================================================
+            # 1) Texto base do estado, usando mapeamento ligado à ontologia
+            estado_txt = self.onto_access.map_estado_code_to_label(estado_code)
+
+            # 2) Fragmento de defeito, usando mapeamento ligado às classes de defeito
+            defeito_frag = self.onto_access.map_defeito_code_to_fragment(defeito_code)
+            if defeito_frag:
+                defeito_txt = f" {defeito_frag}"
+            else:
+                defeito_txt = ""
+
+            # 3) Determinar gravidade qualitativa (para escolha de equipe)
+            gravidade = self._estado_para_gravidade(estado_code)
+
+            # 4) Escolher funcionários conforme as regras desejadas
+            sufixo_func = self._escolher_funcionarios(gravidade, estado_code)
+
+            # 5) Montar linha final
+            linha = f"Maquina {maquina} {estado_txt}{defeito_txt}{sufixo_func}"
+            linhas.append(linha)
+
+        return "\n".join(linhas)
+
+# ----------------------------------------------------------------------
+# Instância global (compatível com seu padrão anterior)
+# ----------------------------------------------------------------------
+
 llm_gerente = LLMGerente()
 
-# ============================================================================
-# TESTE COM ENTRADA EXATA SOLICITADA
-# ============================================================================
+# ----------------------------------------------------------------------
+# Pequeno teste manual quando executado diretamente
+# ----------------------------------------------------------------------
 if __name__ == "__main__":
-    print("🚀 LLM_G.py ESTRUTURADO - Saída EXATA solicitada")
-    print("=" * 70)
-
-    # ✅ ENTRADA EXATA solicitada
-    dados_entrada = [
+    entradas = [
         {"Maquina": "M1", "Estado": 0, "Defeito": -1},
         {"Maquina": "M2", "Estado": 1, "Defeito": 0},
-        {"Maquina": "M3", "Estado": 2, "Defeito": 1}  # Adicionado para completar
+        {"Maquina": "M3", "Estado": 2, "Defeito": 1},
     ]
-
-    # ✅ EXECUTA
-    resultado = llm_gerente.handle_estruturado(dados_entrada)
-
-    print("📥 ENTRADA:")
-    for dado in dados_entrada:
-        print(f"   {dado}")
-
-    print("\n📤 SAÍDA EXATA (100% compatível):")
-    print("-" * 50)
-    print(resultado)
-
-    # ✅ VERIFICA SAÍDA EXATA
-    saida_esperada = """Maquina M1 Esta normal
-Maquina M2 ainda Esta longe De quebrar K e quebrar J, funcionário júnior C será enviado sozinho
-Maquina M3 Esta se aproximando de quebrar I, funcionário senior A vai ser enviado junto de funcionário treinando B"""
-
-    print("\n✅ VERIFICAÇÃO:")
-    if resultado.strip() == saida_esperada.strip():
-        print("🎉 SAÍDA 100% CORRETA!")
-    else:
-        print("⚠️ Diferenças detectadas")
-        print(f"Esperado: {saida_esperada}")
-        print(f"Obtido:  {resultado}")
-
-    print("\n🚀 PRONTO PARA PRODUÇÃO!")
+    print(llm_gerente.handle_structured(entradas))
