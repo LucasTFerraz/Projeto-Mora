@@ -3,6 +3,7 @@
 Acesso à ontologia do Projeto-MORA.
 Permite consultar classes, subclasses, indivíduos e propriedades da ontologia OWL.
 """
+import types
 
 from owlready2 import get_ontology, Thing, default_world
 
@@ -14,7 +15,9 @@ class OntologyAccess:
     # ----------------------------------------------------------------------
     # --- CONSULTAS BÁSICAS ---
     # ----------------------------------------------------------------------
-
+    def add_Funcionario(self,func):
+        with self.onto:
+            funcionario = types.new_class("NewClassName", (Thing,))
     def list_classes(self):
         """Retorna todas as classes definidas na ontologia."""
         return [clazz for clazz in self.onto.classes()]
