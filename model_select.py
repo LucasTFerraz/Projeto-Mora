@@ -6,7 +6,7 @@ Permite carregar, armazenar, consultar e executar modelos IA
 """
 
 from models.randon_forest import RandomForestEngine
-from models.LSTM import LSTMEngine
+#from models.LSTM import LSTMEngine
 
 
 class ModelSelector:
@@ -24,9 +24,9 @@ class ModelSelector:
         self.models["rf"] = rf
 
         # LSTM
-        lstm = LSTMEngine(input_size=4)
+        '''lstm = LSTMEngine(input_size=4)
         lstm.load()
-        self.models["lstm"] = lstm
+        self.models["lstm"] = lstm'''
 
         # Novos modelos poderão ser adicionados aqui
         # ex: self.models["cnn"] = CNNEngine(...)

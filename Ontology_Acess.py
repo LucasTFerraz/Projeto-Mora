@@ -8,7 +8,7 @@ import types
 from owlready2 import get_ontology, Thing, default_world
 
 class OntologyAccess:
-    def __init__(self, path: str = "Project_Ontology.owl"):
+    def __init__(self, path: str = "Project_Ontology.owx"):
         self.path = path
         self.onto = get_ontology(path).load()
 
