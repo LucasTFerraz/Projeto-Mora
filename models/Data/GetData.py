@@ -84,5 +84,3 @@ def plot_lines(df):
 
     # display plot
     plt.show()
-
-plot_lines(get())
