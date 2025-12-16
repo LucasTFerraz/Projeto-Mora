@@ -8,9 +8,9 @@ def sumCol(row,letter):
     if ["distancia"] == 0:
         return row[f'{letter}_dif'] + row[f'S_{letter}_dif']
     return row['eri_hispanic']+row['eri_hispanic']
-def get(mode = 1):
+def get(dbfile = 'simulacao-abs.db',mode = 1):
     # creating file path
-    dbfile = 'simulacao-abs.db'
+
     # Create a SQL connection to our SQLite database
     con = sqlite3.connect(dbfile)
 
@@ -19,6 +19,7 @@ def get(mode = 1):
 
     # reading all table names
     table_list = [a for a in cur.execute("SELECT name FROM sqlite_master WHERE type = 'table'")]
+    print(table_list)
     cur.execute(f'SELECT * FROM {table_list[0][0]}')
     data = pd.DataFrame(cur.fetchall())
     # here is you table list
@@ -26,6 +27,8 @@ def get(mode = 1):
     data[0] = pd.to_datetime(data[0])
     d = {0:"Time",1:"X_dif",2:"Y_dif",3:"Z_dif",4:"quebrada_minuto",5:"pausada_minuto"}
     data = data.rename(columns=d)
+    data['Time'] = pd.to_numeric(pd.to_datetime(data['Time']))
+
     #print(data.head())
     #data2 = data.rename(columns=d)
     f = np.array(np.where(data['quebrada_minuto'] == 1)).tolist()[0]
@@ -58,12 +61,12 @@ def get(mode = 1):
             lk+=1
     else:
         print("d  ",len(distance))
-        if mode == 0:
+        if mode == 2:
             for x in range(len(data)-len(distance)):
                 distance.append(distance[x+4])
         data2 = data[data.index < len(distance)]
     #m = np.linalg.norm(np.array(distance))
-    data2["distancia"] =distance #10* np.array(distance)/m
+    data2["distancia"] = distance #10* np.array(distance)/m
     con.close()
     data2.pop("pausada_minuto")
     data2.pop("quebrada_minuto")
@@ -80,6 +83,12 @@ def get(mode = 1):
     #data2 = (data2 - data2.min()) / (data2.max() - data2.min())
     #data2 = (data2-data2.mean())/data2.std()
     print(data2.info())
+    if mode == 2:
+        data.pop("pausada_minuto")
+        data.pop("quebrada_minuto")
+        data = data[data.index >= len(data) - len(data) / 10]
+        data2 = data2[data2.index >= len(data2) - len(data2) / 10]
+        return data2
     return data2
 
 def plot_lines(df):
@@ -90,4 +99,5 @@ def plot_lines(df):
     # display plot
     plt.show()
 
-get()
+#get()
+#print("END")

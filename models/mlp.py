@@ -1,4 +1,4 @@
-
+import json
 
 import pandas as pd
 
@@ -7,7 +7,7 @@ import pickle
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.neural_network import MLPRegressor
 
 
 warnings.filterwarnings('ignore')
@@ -19,8 +19,8 @@ def get_model(n):
 
     return model
 
-def save_model(model,n,machine,k):
-    with open(f'Trained_Models/model_RF_{n}_{machine}_{k}.pkl', 'wb') as f:
+def save_model(model,name,machine,k):
+    with open(f'Trained_Models/model_mlp{name}_{machine}_{k}.pkl', 'wb') as f:
         pickle.dump(model, f)
 
 
@@ -42,8 +42,8 @@ def evaluate(model,df):
     y = df["distancia"].values
     x = encode_x(df.loc[:, df.columns != "distancia"])
 
-    oob_score = model.oob_score_
-    print(f'Out-of-Bag Score: {oob_score}')
+    '''oob_score = model.oob_score_
+    print(f'Out-of-Bag Score: {oob_score}')'''
 
     predictions = model.predict(x)
 
@@ -52,7 +52,7 @@ def evaluate(model,df):
 
     r2 = r2_score(y, predictions)
     print(f'R-squared: {r2}')
-    return {"R2": r2, "mse": mse, 'Out-of-Bag': oob_score}
+    return {"R2": r2, "mse": mse}
 
 def predict(model,df):
     try:
@@ -62,18 +62,34 @@ def predict(model,df):
     return model.predict(x)
 
 
-def train(df,n_estimators):
+'''def plot_result(df,regressor,y):
+    import numpy as np
+    
+    X = df.i.loc[:, df.columns != 'distancia'].values
+    X_grid = np.arange(min(X[:, 0]), max(X[:, 0]), 0.01)  # Only the first feature
+    X_grid = X_grid.reshape(-1, 1)
+    X_grid = np.hstack((X_grid, np.zeros((X_grid.shape[0], 2))))  # Pad with zeros
+
+    plt.scatter(X[:, 0], y, color='blue', label="Actual Data")
+    plt.plot(X_grid[:, 0], regressor.predict(X_grid), color='green', label="Random Forest Prediction")
+    plt.title("Random Forest Regression Results")
+    plt.xlabel('Position Level')
+    plt.ylabel('Salary')
+    plt.legend()
+    plt.show()'''
+
+
+def train(df,activation = 'relu'):
     y = df["distancia"].values
     x = encode_x(df.loc[:, df.columns != "distancia"])
-
-    model = RandomForestRegressor(n_estimators=n_estimators, random_state=0, oob_score=True)
+    print(y)
+    print(pd.DataFrame(x))
+    model = MLPRegressor(activation=activation, random_state=0)
 
     model.fit(x, y)
 
-    from sklearn.metrics import mean_squared_error, r2_score
-
-    oob_score = model.oob_score_
-    print(f'Out-of-Bag Score: {oob_score}')
+    '''oob_score = model.oob_score_
+    print(f'Out-of-Bag Score: {oob_score}')'''
 
     predictions = model.predict(x)
 
@@ -82,30 +98,4 @@ def train(df,n_estimators):
 
     r2 = r2_score(y, predictions)
     print(f'R-squared: {r2}')
-    return model ,{"R2":r2,"mse":mse,'Out-of-Bag':oob_score}
-
-
-'''def use(df):
-
-    X = df.iloc[:, 1:2].values
-    y = df.iloc[:, 2].values
-
-    label_encoder = LabelEncoder()
-    x_categorical = df.select_dtypes(include=['object']).apply(label_encoder.fit_transform)
-    x_numerical = df.select_dtypes(exclude=['object']).values
-    x = pd.concat([pd.DataFrame(x_numerical), x_categorical], axis=1).values
-
-    regressor = RandomForestRegressor(n_estimators=10, random_state=0, oob_score=True)
-
-    regressor.fit(x, y)
-
-    oob_score = regressor.oob_score_
-    print(f'Out-of-Bag Score: {oob_score}')
-
-    predictions = regressor.predict(x)
-
-    mse = mean_squared_error(y, predictions)
-    print(f'Mean Squared Error: {mse}')
-
-    r2 = r2_score(y, predictions)
-    print(f'R-squared: {r2}')'''
+    return model ,{"R2":r2,"mse":mse}
