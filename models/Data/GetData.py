@@ -8,7 +8,7 @@ def sumCol(row,letter):
     if ["distancia"] == 0:
         return row[f'{letter}_dif'] + row[f'S_{letter}_dif']
     return row['eri_hispanic']+row['eri_hispanic']
-def get(mode = 0):
+def get(mode = 1):
     # creating file path
     dbfile = 'simulacao-abs.db'
     # Create a SQL connection to our SQLite database
@@ -22,14 +22,14 @@ def get(mode = 0):
     cur.execute(f'SELECT * FROM {table_list[0][0]}')
     data = pd.DataFrame(cur.fetchall())
     # here is you table list
-    print(data.info())
+    #print(data.info())
     data[0] = pd.to_datetime(data[0])
     d = {0:"Time",1:"X_dif",2:"Y_dif",3:"Z_dif",4:"quebrada_minuto",5:"pausada_minuto"}
     data = data.rename(columns=d)
-    print(data.head())
-    data2 = data.rename(columns=d)
+    #print(data.head())
+    #data2 = data.rename(columns=d)
     f = np.array(np.where(data['quebrada_minuto'] == 1)).tolist()[0]
-    print(f)
+    #print(f)
     fails = {f[0]: {"Start":f[0]}}
     l = f[0]
     for x in range(1,len(f)):
@@ -41,27 +41,31 @@ def get(mode = 0):
             fails[l]["Start"] = f[x]
     else:
         fails[l]["End"] = f[x]
-    print(fails)
+    #print(fails)
     # Be sure to close the connection
     lk = 0
-
+    ls = 0
     distance = []
     for i in fails.keys():
         y = fails[i]["End"]
         x = fails[i]["Start"]
         ls = x - lk
-        while(lk <= y):
+        while lk <= y:
             if lk>= x:
                 distance.append(0)
             else:
                 distance.append((x-lk)/ls)
             lk+=1
     else:
-        for x in range(len(data)-len(distance)):
-            distance.append(distance[x+4])
+        print("d  ",len(distance))
+        if mode == 0:
+            for x in range(len(data)-len(distance)):
+                distance.append(distance[x+4])
+        data2 = data[data.index < len(distance)]
     #m = np.linalg.norm(np.array(distance))
     data2["distancia"] =distance #10* np.array(distance)/m
     con.close()
+    data2.pop("pausada_minuto")
     data2.pop("quebrada_minuto")
     '''if mode == 0:
         data2=(data2-data2.min())/(data2.max()-data2.min())
@@ -75,6 +79,7 @@ def get(mode = 0):
             data2.pop(f"S_{x}")'''
     #data2 = (data2 - data2.min()) / (data2.max() - data2.min())
     #data2 = (data2-data2.mean())/data2.std()
+    print(data2.info())
     return data2
 
 def plot_lines(df):
@@ -84,3 +89,5 @@ def plot_lines(df):
 
     # display plot
     plt.show()
+
+get()
